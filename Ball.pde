@@ -40,9 +40,34 @@ class Ball {
     bounce();
   }
  
+ void explode() {
+   state = GROWING;
+   while (rad < 30) {
+    rad++;
+   }
+   state = SHRINKING;
+   while (rad > 0) {
+     rad--;
+   }
+   state = DEAD;
+ }
+ 
+ void bounce() {
+   if (x == 0 || x == 600) {
+     dx = -dx;
+   }
+   if (y==0 || y == 600) {
+     dy = -dy;
+   }
+ }
  
  boolean isTouching( Ball other ) {
- 
+   if ((dist(x, y, other.x, other.y) == rad + other.rad) && 
+   (other.state==GROWING || other.state == SHRINKING)) {
+       explode();
+      return true;
+   }
+   else return false;
  }
  
   

@@ -27,13 +27,12 @@ void draw() {
   }
 }
 
-
 void mouseClicked() {
   if ( !reactionStarted ) {
     balls[0].x = mouseX;
     balls[0].y = mouseY;
     balls[0].rad = 0.1;
-    balls[0].state = Ball.GROWING;
+    balls[0].explode();
     reactionStarted = true;
     }
 }
