@@ -49,31 +49,31 @@ class Ball {
    }
  }
  
- boolean isTouching( Ball other ) {
-   if ((other.state==1 || other.state==2) && (rad+other.rad)/2 > dist(x,y,other.x,other.y)) {
-     return true;
-   }
-   return false;
+ boolean isTouching(Ball other) {
+   return (this != other && state == MOVING && (other.state == GROWING || other.state == SHRINKING) 
+           && ((rad + other.rad)/2 > dist(x, y, other.x, other.y)));
  }
  
 
  void process() {
-   if (state == 0) {
+   if (state == MOVING) {
      move();
      fill(c);
      noStroke();
      ellipse(x,y,2*rad,2*rad);
    }
-   if (state == 1) {
-     if (rad<50) rad+=0.25;
-     else state = 2;
+   if (state == GROWING) {
+     if (rad < 100) 
+       rad += 0.25;
+     else state = SHRINKING;
      fill(c);
      noStroke();
      ellipse(x,y,2*rad,2*rad);
    }
-   if (state == 2) {
-     if (rad>0) rad-=0.25;
-     else state = 3;
+   if (state == SHRINKING) {
+     if (rad > 0) 
+       rad -= 0.25;
+     else state = DEAD;
      fill(c);
      noStroke();
      ellipse(x,y,2*rad,2*rad);
