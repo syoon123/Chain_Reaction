@@ -18,13 +18,14 @@ void draw() {
 
 
   for (int i=0; i < balls.length; i++ ) {
-    
+     balls[i].move();
+     for (int j=0; j<balls.length; j++) {
+       if (j!=i && balls[i].isTouching(balls[j])) {
+         balls[i].explode();
+       }
+     }
   }
 
-  for (int i=0; i < balls.length; i++ ) {
-    balls[i].draw(i);
-    balls[i].process();
-  }
 }
 
 void mouseClicked() {

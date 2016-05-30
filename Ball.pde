@@ -30,6 +30,7 @@ class Ball {
     dx = random(10) - 5;
     dy = random(10) - 5;
     
+    ellipse(x,y,2*rad, 2*rad);
     state = MOVING;
   }
   
@@ -64,7 +65,6 @@ class Ball {
  boolean isTouching( Ball other ) {
    if ((dist(x, y, other.x, other.y) == rad + other.rad) && 
    (other.state==GROWING || other.state == SHRINKING)) {
-       explode();
       return true;
    }
    else return false;
