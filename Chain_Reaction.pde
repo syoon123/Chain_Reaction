@@ -16,24 +16,21 @@ void setup() {
 void draw() {
   background(0);
 
-
+  
+  
   for (int i=0; i < balls.length; i++ ) {
-     balls[i].move();
-     for (int j=0; j<balls.length; j++) {
-       if (j!=i && balls[i].isTouching(balls[j])) {
-         balls[i].explode();
-       }
-     }
+    //balls[i].draw(i);
+    balls[i].process();
   }
-
 }
+
 
 void mouseClicked() {
   if ( !reactionStarted ) {
     balls[0].x = mouseX;
     balls[0].y = mouseY;
     balls[0].rad = 0.1;
-    balls[0].explode();
+    balls[0].state = Ball.GROWING;
     reactionStarted = true;
     }
 }

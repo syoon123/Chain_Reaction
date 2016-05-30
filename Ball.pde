@@ -30,7 +30,6 @@ class Ball {
     dx = random(10) - 5;
     dy = random(10) - 5;
     
-    ellipse(x,y,2*rad, 2*rad);
     state = MOVING;
   }
   
@@ -41,34 +40,45 @@ class Ball {
     bounce();
   }
  
- void explode() {
-   state = GROWING;
-   while (rad < 30) {
-    rad++;
-   }
-   state = SHRINKING;
-   while (rad > 0) {
-     rad--;
-   }
-   state = DEAD;
- }
- 
  void bounce() {
-   if (x == 0 || x == 600) {
+   if (x<=0 || x >= 600) {
      dx = -dx;
    }
-   if (y==0 || y == 600) {
+   if (y<=0 || y>=600) {
      dy = -dy;
    }
  }
  
  boolean isTouching( Ball other ) {
-   if ((dist(x, y, other.x, other.y) == rad + other.rad) && 
-   (other.state==GROWING || other.state == SHRINKING)) {
-      return true;
+   if ((other.state==1 || other.state==2) && (rad+other.rad)/2 > dist(x,y,other.x,other.y)) {
+     return true;
    }
-   else return false;
+   return false;
  }
  
+
+ void process() {
+   if (state == 0) {
+     move();
+     fill(c);
+     noStroke();
+     ellipse(x,y,2*rad,2*rad);
+   }
+   if (state == 1) {
+     if (rad<50) rad+=0.25;
+     else state = 2;
+     fill(c);
+     noStroke();
+     ellipse(x,y,2*rad,2*rad);
+   }
+   if (state == 2) {
+     if (rad>0) rad-=0.25;
+     else state = 3;
+     fill(c);
+     noStroke();
+     ellipse(x,y,2*rad,2*rad);
+   }
+ }
+     
   
 }//end class Ball
